@@ -7,7 +7,6 @@ import com.cn.easyexcel.entity.Student;
 import com.cn.easyexcel.listener.StudentListener;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/student")
+@Slf4j
 public class StudentController {
     @Resource
     private StudentListener studentListener;
@@ -45,7 +45,7 @@ public class StudentController {
         try {
             return "success";
         } catch (Exception e) {
-            //log.error("读取文件失败：{}", e.getMessage());
+            log.error("读取文件失败：{}", e.getMessage());
             return "fail";
         }
     }
