@@ -35,7 +35,8 @@ public class StudentController {
             StudentListener.threadLocal.remove();
             return "success";
         } catch (Exception e) {
-            //log.error("读取文件失败：{}", e.getMessage());
+            log.error("读取文件失败：{}", e.getMessage());
+            e.printStackTrace();
             return "fail";
         }
     }
