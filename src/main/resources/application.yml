@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: easyexcel-test
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/easyexcel?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234.com
+
+mybatis:
+  #mapper-locations: com.kk.mybatis.mapper
+  #configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #use-generated-keys: true
+  type-aliases-package: com.cn.easyexcel.entity
+#logging:
+#  level:
+#    com.kk.mybatis.mapper: debug
+#debug: true
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true

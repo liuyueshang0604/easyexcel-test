@@ -4,8 +4,9 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.cn.easyexcel.entity.Student;
 import com.cn.easyexcel.service.StudentService;
-import jakarta.annotation.Resource;
-import org.springframework.context.annotation.Scope;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,11 +15,13 @@ import java.util.ArrayList;
  * 读取文档的监听器类
  */
 @Component
-@Scope("prototype") //作者要求每次读取都要使用新的Listener
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StudentListener extends AnalysisEventListener<Student> {
-    @Resource
-    private StudentService studentService;
+
+    private  final StudentService studentService;
     public static final ThreadLocal<ArrayList<Student>> threadLocal = new ThreadLocal<ArrayList<Student>>();
+
+
     /**
      * 读监听器，每读一行内容，都会调用一次invoke，在invoke可以操作使用读取到的数据
      *
@@ -32,7 +35,7 @@ public class StudentListener extends AnalysisEventListener<Student> {
             students = threadLocal.get();
         }
         students.add(student);
-        if (students.size() == 5) {
+        if (CollectionUtils.isNotEmpty(students)) {
             studentService.save(students);
             students.clear();
         }
