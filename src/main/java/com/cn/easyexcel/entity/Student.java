@@ -2,6 +2,10 @@ package com.cn.easyexcel.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +18,14 @@ import java.util.Date;
  * @date 2024/12/04
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Student {
+@TableName(value = "student")
+public class Student extends Model {
 
     /**
      * 学号
      */
     @ExcelProperty("学号")
+    @TableField("id")
     private String id;
 
     /**
@@ -29,12 +33,14 @@ public class Student {
      */
     @ExcelProperty("学生姓名")
     @ColumnWidth(20)
+    @TableField(fill = FieldFill.INSERT)
     private String name;
 
     /**
      * 学生性别
      */
     @ExcelProperty(value = "学生性别", index = 1)
+    @TableField(fill = FieldFill.INSERT)
     private String gender;
 
     /**
@@ -42,6 +48,7 @@ public class Student {
      */
     @ExcelProperty("出生日期")
     @ColumnWidth(20)
+    @TableField(fill = FieldFill.INSERT)
     private Date birthday;
 
 }

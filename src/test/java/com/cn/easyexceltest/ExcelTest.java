@@ -3,6 +3,7 @@ package com.cn.easyexceltest;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.builder.ExcelReaderSheetBuilder;
+import com.cn.EasyexcelTestApplication;
 import com.cn.easyexcel.entity.Student;
 import com.cn.easyexcel.listener.StudentListener;
 import com.cn.easyexcel.service.StudentService;
@@ -18,11 +19,15 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @create 2023-02-26 15:03
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = EasyexcelTestApplication.class)
 public class ExcelTest {
 
     @Autowired
     private StudentService studentService;
+
+    @Resource
+    private StudentMyMapper studentMyMapper;
+
     /**
      * 工作簿：一个excel文件就是一个工作簿
      * 工作表：一个工作簿可以有多个工作表（sheet）
@@ -38,8 +43,14 @@ public class ExcelTest {
          */
         ExcelReaderBuilder readWorkBook = EasyExcel.read("src/main/demo/学生信息表.xlsx", Student.class,new StudentListener(studentService));
         // 2.获得一个工作表对象，默认读取第一个工作表
+        // 2.获得一个工作表对象，默认读取第一个工作表
         ExcelReaderSheetBuilder sheet = readWorkBook.sheet();
         // 3.读取工作表中的内容
         sheet.doRead();
+    }
+
+    @Test
+    public void test02() {
+        studentMyMapper.insertBatchSomeColumn(null);
     }
 }
