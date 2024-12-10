@@ -25,9 +25,6 @@ public class ExcelTest {
     @Autowired
     private StudentService studentService;
 
-    @Resource
-    private StudentMyMapper studentMyMapper;
-
     /**
      * 工作簿：一个excel文件就是一个工作簿
      * 工作表：一个工作簿可以有多个工作表（sheet）
@@ -47,10 +44,5 @@ public class ExcelTest {
         ExcelReaderSheetBuilder sheet = readWorkBook.sheet();
         // 3.读取工作表中的内容
         sheet.doRead();
-    }
-
-    @Test
-    public void test02() {
-        studentMyMapper.insertBatchSomeColumn(null);
     }
 }
